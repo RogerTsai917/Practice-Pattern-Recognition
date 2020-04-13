@@ -34,24 +34,21 @@ def getEachClassDatasetDict(feature_list, label_list):
 
 def calculateEachClassParameters(dataset_dict):
     result_dict = {}
-    # calculate probability
+    
     total_number_of_data = 0
-    for key in dataset_dict.keys():
+    for key in dataset_dict.keys():  
         total_number_of_data += dataset_dict[key]['count']
     for key in dataset_dict.keys():
         result_dict[key] = {}
+        # calculate probability
         result_dict[key]['probability'] = dataset_dict[key]['count']/total_number_of_data
-    # calculate mean
-    for key in dataset_dict.keys():
+        # calculate mean
         result_dict[key]['mean'] = np.mean(dataset_dict[key]['feature_array'], axis=0)
-    # calculate covariance matrix
-    for key in dataset_dict.keys():
+        # calculate covariance matrix
         result_dict[key]['cov'] = np.cov(np.transpose(dataset_dict[key]['feature_array']))
-    # calculate inverse of covariance matrix
-    for key in result_dict.keys():
+        # calculate inverse of covariance matrix
         result_dict[key]['inv_of_cov'] = inv(result_dict[key]['cov'])
-    # calculate determinant of covariance matrix
-    for key in result_dict.keys():
+        # calculate determinant of covariance matrix
         result_dict[key]['det_of_cov'] = det(result_dict[key]['cov'])
     return result_dict
 
@@ -77,9 +74,7 @@ def predict(feature_test, label_test, each_class_parameters_dict):
             correct += 1
         else:
             error += 1
-
     return correct/(correct+error)
-
 
 if __name__ == "__main__":
     data_file_name = 'wine.data'
