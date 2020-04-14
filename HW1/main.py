@@ -53,9 +53,9 @@ def calculateEachClassParameters(dataset_dict):
     return result_dict
 
 def calculateEachClassProbabiluty(x, parameters_dict):
-    log_p = np.log10(parameters_dict['probability'])
+    log_p = np.log(parameters_dict['probability'])
     matrices_dot = np.transpose(x-parameters_dict['mean']).dot(parameters_dict['inv_of_cov']).dot(x-parameters_dict['mean'])
-    log_det_of_cov = np.log10(parameters_dict['det_of_cov'])
+    log_det_of_cov = np.log(parameters_dict['det_of_cov'])
 
     return -log_p + (matrices_dot/2) + (log_det_of_cov/2)
 
